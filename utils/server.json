@@ -1,0 +1,18 @@
+{
+    "Server":{
+        "Name": "my server",
+        "ServerPort": 8000
+    },
+    "Mysql" : {
+        "Host" : "127.0.0.1",
+        "Port" : 3306,
+        "User" : "root",
+        "Password" : "123456",
+        "DataBase" : "mir_v4"
+      },
+      "Redis" : {
+        "Host" : "127.0.0.1",
+        "Port" : 6379,
+        "Password" : "lai123"
+      }
+  }

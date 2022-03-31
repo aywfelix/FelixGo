@@ -1,0 +1,24 @@
+syntax = "proto3";
+package protos;
+
+message User
+{
+    int32 UserId = 1;
+    string AccountId = 2;
+    string Name = 3;
+    int32 Level = 4;
+    UserBaseData BaseData = 5;
+    UserDetailData DetailData = 6;
+    int64 CreateTime = 7;
+}
+
+message UserBaseData
+{
+
+}
+
+message UserDetailData
+{
+
+}
+
