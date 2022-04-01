@@ -26,6 +26,7 @@ type ISceneMsgHandler interface {
 	DispatchBySceneID(request IRequest)
 }
 
+
 type MsgHandler struct {
 	// 根据消息id指定路由
 	Apis map[uint32]IRouter
@@ -38,8 +39,8 @@ type MsgHandler struct {
 func NewMsgHandler() *MsgHandler {
 	return &MsgHandler{
 		Apis:         make(map[uint32]IRouter),
-		workPoolSize: msg_worker_pool_size,
-		workPool:     make([]chan IRequest, msg_worker_pool_size),
+		workPoolSize: MSG_WORKER_POOL_SIZE,
+		workPool:     make([]chan IRequest, MSG_WORKER_POOL_SIZE),
 	}
 }
 
@@ -65,7 +66,7 @@ func (mh *MsgHandler) AddRouter(msgID uint32, router IRouter) {
 
 func (mh *MsgHandler) StartWorkPool() {
 	for i := 0; i < int(mh.workPoolSize); i++ {
-		mh.workPool[i] = make(chan IRequest, max_msg_worker_size)
+		mh.workPool[i] = make(chan IRequest, MAX_MSG_WORKER_SIZE)
 		go mh.startWorker(i)
 	}
 	mh.isUsePool = true
@@ -88,19 +89,19 @@ func (mh *MsgHandler) DispatchByMsgID(request IRequest) {
 }
 
 func (mh *MsgHandler) DispatchByRoleID(request IRequest) {
-	// 根据消息ID分发到不同线程去执行
+	// 根据玩家角色ID分发到不同线程去执行
 	workID := request.GetMsgID() % mh.workPoolSize
 	mh.workPool[workID] <- request
 }
 
 func (mh *MsgHandler) DispatchBySceneID(request IRequest) {
-	// 根据消息ID分发到不同线程去执行
+	// 根据场景ID分发到不同线程去执行
 	workID := request.GetMsgID() % mh.workPoolSize
 	mh.workPool[workID] <- request
 }
 
 func (mh *MsgHandler) DispatchByServerID(request IRequest) {
-	// 根据消息ID分发到不同线程去执行
+	// 根据服务器ID分发到不同线程去执行
 	workID := request.GetMsgID() % mh.workPoolSize
 	mh.workPool[workID] <- request
 }

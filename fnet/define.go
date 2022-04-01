@@ -39,10 +39,10 @@ const (
 	MT_HTTP  MsgType = 3
 )
 
-const default_header_len uint32 = 9
-const max_packet_size = 64 * 1024
-const max_msg_worker_size = 100
-const msg_worker_pool_size = 1000
+const DEFAULT_HEADER_LEN uint32 = 9
+const MAX_PACKAGE_SIZE = 32 * 1024
+const MAX_MSG_WORKER_SIZE = 100
+const MSG_WORKER_POOL_SIZE = 1000
 
 type MsgErrCode int64
 

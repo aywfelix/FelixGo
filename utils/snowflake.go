@@ -21,7 +21,7 @@ var (
 	nodeShift       = StepBits
 )
 
-type UniqNode struct {
+type snowFlake struct {
 	mu    sync.Mutex
 	epoch time.Time
 	time  int64
@@ -37,14 +37,14 @@ type UniqNode struct {
 
 // NewNode returns a new snowflake node that can be used to generate snowflake
 // IDs
-func NewUniqNode(node int64) *UniqNode {
+func NewSnowFlake(node int64) *snowFlake {
 	nodeMax = -1 ^ (-1 << NodeBits)
 	nodeMask = nodeMax << StepBits
 	stepMask = -1 ^ (-1 << StepBits)
 	timeShift = NodeBits + StepBits
 	nodeShift = StepBits
 
-	n := UniqNode{}
+	n := snowFlake{}
 	n.node = node
 	n.nodeMax = -1 ^ (-1 << NodeBits)
 	n.nodeMask = n.nodeMax << StepBits
@@ -63,7 +63,7 @@ func NewUniqNode(node int64) *UniqNode {
 	return &n
 }
 
-func (n *UniqNode) GenInt() int64 {
+func (n *snowFlake) GenInt() int64 {
 	n.mu.Lock()
 	defer n.mu.Unlock()
 	now := time.Since(n.epoch).Nanoseconds() / 1000000
@@ -84,10 +84,7 @@ func (n *UniqNode) GenInt() int64 {
 	return (now)<<n.timeShift | (n.node << n.nodeShift) | (n.step)
 }
 
-func (n *UniqNode) GenStr() string {
+func (n *snowFlake) GenStr() string {
 	code := n.GenInt()
 	return fmt.Sprintf("%d", code)
 }
-
-//=========================================================
-var GUniqNode *UniqNode

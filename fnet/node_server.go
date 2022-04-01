@@ -1,7 +1,7 @@
 package fnet
 
 import (
-	. "github.com/felix/felixgo/global"
+	"github.com/felix/felixgo/configure"
 	. "github.com/felix/felixgo/logger"
 )
 
@@ -13,7 +13,7 @@ type NodeServer struct {
 	netService INetService
 }
 
-func NewNodeServer(config *NodeConfig) *NodeServer {
+func NewNodeServer(config *configure.NetNode) *NodeServer {
 	ns := new(NodeServer)
 	ns.msgHandler = NewMsgHandler()
 	ns.dataPack = NewDataPack()

@@ -1,4 +1,4 @@
-package global
+package common
 
 // 用于定义常量
 const SIGHT float64 = 4.0        // 玩家视野宽度 默认玩家与怪物视野一致

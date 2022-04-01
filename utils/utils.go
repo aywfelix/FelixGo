@@ -31,3 +31,10 @@ func GoID() uint64 {
 	n, _ := strconv.ParseUint(string(b), 10, 64)
 	return n
 }
+
+//============================================================================
+var SnowFlake *snowFlake
+
+func init() {
+	SnowFlake = NewSnowFlake(0)
+}

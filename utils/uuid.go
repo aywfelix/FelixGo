@@ -45,15 +45,11 @@ func GetGUID() uint64 {
 }
 
 func UniqID() string {
-	return strconv.FormatInt(int64(GUniqNode.GenInt()), 10)
+	return strconv.FormatInt(int64(SnowFlake.GenInt()), 10)
 }
 
 // 基于服务器生成唯一ID
 func GenUID(serverID uint64) uint64 {
 	guid := GetGUID() % 1000 //此处需要处理 15毫秒内同时生成1000个的情况
 	return serverID*1000000000000000 + uint64(TimeMillisecond()*1000)%1000000000000*1000 + guid
-}
-
-func init() {
-	GUniqNode = NewUniqNode(0)
 }

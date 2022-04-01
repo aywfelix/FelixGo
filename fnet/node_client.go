@@ -1,16 +1,17 @@
 package fnet
 
 import (
-	. "github.com/felix/felixgo/global"
+	"github.com/felix/felixgo/configure"
 	. "github.com/felix/felixgo/logger"
-	nodeproto "github.com/felix/felixgo/fnet/proto"
+	nodepb "github.com/felix/felixgo/fnet/proto"
+	. "github.com/felix/felixgo/common"
 )
 
 type INodeClient interface {
 	// 作为客户端上报服务器信息
 	SetReportInfo(serverType ServerType)
 	UpdateOnline(count int)
-	UpdateServerState(state nodeproto.ServerState)
+	UpdateServerState(state nodepb.ServerState)
 	OnMasterRouter()
 	AddConnServer()
 }
@@ -19,10 +20,10 @@ type NodeClient struct {
 	NodeService
 	netClients INetClients
 
-	serverInfo nodeproto.ServerReport
+	serverInfo nodepb.ServerReport
 }
 
-func NewNodeClient(config *NodeConfig) *NodeClient {
+func NewNodeClient(config *configure.NetNode) *NodeClient {
 	nc := &NodeClient{}
 	nc.msgHandler = NewMsgHandler()
 	nc.dataPack = NewDataPack()
@@ -45,7 +46,7 @@ func (nc *NodeClient) SetReportInfo(serverType ServerType) {
 	nc.serverInfo.ServerPort = int32(nc.nodeConfig.NodePort)
 	nc.serverInfo.MaxOnline = int32(nc.nodeConfig.MaxConnect)
 	nc.serverInfo.CurOnline = 0
-	nc.serverInfo.ServerState = nodeproto.ServerState_SS_NORMAL
+	nc.serverInfo.ServerState = nodepb.ServerState_SS_NORMAL
 	nc.serverInfo.ServerType = int32(serverType)
 }
 
@@ -53,7 +54,7 @@ func (nc *NodeClient) UpdateOnline(count int) {
 	nc.serverInfo.CurOnline = int32(count)
 }
 
-func (nc *NodeClient) UpdateServerState(state nodeproto.ServerState) {
+func (nc *NodeClient) UpdateServerState(state nodepb.ServerState) {
 	nc.serverInfo.ServerState = state
 }
 

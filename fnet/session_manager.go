@@ -6,7 +6,7 @@ import (
 )
 
 var (
-	session_not_found = errors.New("session not found")
+	errSessionNotFound = errors.New("session not found")
 )
 
 type ISessionManager interface {
@@ -72,7 +72,7 @@ func (cm *SessionManager) GetSession(sessionID int64) (ISession, error) {
 	if session, ok := sessionMap[sessionID]; ok {
 		return session, nil
 	}
-	return nil, session_not_found
+	return nil, errSessionNotFound
 }
 
 func (cm *SessionManager) ClearSession(sID int64) {

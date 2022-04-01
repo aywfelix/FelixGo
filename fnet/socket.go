@@ -132,7 +132,7 @@ func (ss *SSocket) Listen() error {
 
 			socket := NewSocket(ss.IP, ss.Port, conn)
 			// 将连接保存到会话中
-			session := NewSession(GUniqNode.GenInt(), socket)
+			session := NewSession(SnowFlake.GenInt(), socket)
 			session.SetNetService(ss.netService)
 			// TODO:每次连接创建一个协程，可以优化使用协程池处理
 			go func() {
@@ -183,7 +183,7 @@ func (cs *CSocket) Connect(ipVer, ip string, port int) (error, ISession) {
 	}
 	cs.conn = conn
 	// 将连接保存到会话中
-	session := NewSession(GUniqNode.GenInt(), cs) // TODO: 优化session 复用处理
+	session := NewSession(SnowFlake.GenInt(), cs) // TODO: 优化session 复用处理
 	session.SetNetService(cs.netService)
 	go func() {
 		defer func() {

@@ -2,7 +2,7 @@ package fnet
 
 import (
 	"context"
-	. "github.com/felix/felixgo/global"
+	"github.com/felix/felixgo/configure"
 	. "github.com/felix/felixgo/thread"
 )
 
@@ -10,7 +10,7 @@ import (
 type INodeService interface {
 	GetMsgHandler() IMsgHandler
 	GetDataPack() IDataPack
-	GetNodeConfig() *NodeConfig
+	GetNodeConfig() *configure.NetNode
 	RegisterRouter(msgID uint32, router IRouter)
 
 	SetOnStart(onStart FuncArgs)
@@ -36,7 +36,7 @@ type NodeService struct {
 	onDisconnected FuncArgs
 
 	isStopped  bool
-	nodeConfig *NodeConfig
+	nodeConfig *configure.NetNode
 
 	ctx    context.Context
 	cancel func()
@@ -48,7 +48,7 @@ func (ns *NodeService) GetMsgHandler() IMsgHandler {
 func (ns *NodeService) GetDataPack() IDataPack {
 	return ns.dataPack
 }
-func (ns *NodeService) GetNodeConfig() *NodeConfig {
+func (ns *NodeService) GetNodeConfig() *configure.NetNode {
 	return ns.nodeConfig
 }
 func (ns *NodeService) RegisterRouter(msgID uint32, router IRouter) {

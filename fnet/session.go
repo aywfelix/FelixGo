@@ -126,13 +126,13 @@ func (s *Session) sendMsg(msgID uint32, msgType uint8, data []byte) error {
 }
 
 func (s *Session) SendProtoBuffer(msgID uint32, data []byte) error {
-	return s.sendBuffMsg(msgID, uint8(MT_PROTO), data)
+	return s.sendBufMsg(msgID, uint8(MT_PROTO), data)
 }
 func (s *Session) SendJsonBuffer(msgID uint32, data []byte) error {
-	return s.sendBuffMsg(msgID, uint8(MT_JSON), data)
+	return s.sendBufMsg(msgID, uint8(MT_JSON), data)
 }
 
-func (s *Session) sendBuffMsg(msgID uint32, msgType uint8, data []byte) error {
+func (s *Session) sendBufMsg(msgID uint32, msgType uint8, data []byte) error {
 	s.RLock()
 	defer s.RUnlock()
 	msg, err := s.dataPack.Pack(NewMessage(msgID, msgType, data))
@@ -204,12 +204,17 @@ func (s *Session) startWriter() {
 	defer s.Stop()
 	for {
 		select {
-		case data := <-s.msgChan:
-			if _, err := s.socket.Send(data); err != nil {
-				LogError("send data to client err, %v", err.Error())
-				return
+		case data, ok := <-s.msgChan:
+			if ok {
+				if _, err := s.socket.Send(data); err != nil {
+					LogError("send data to client err, %v", err.Error())
+					return
+				}
+				LogInfo("send data to client ok, %v", data)
+			}else{
+				LogInfo("msgChan closed")
+				break				
 			}
-			LogInfo("send data to client ok, %v", data)
 		case data, ok := <-s.msgBuffChan:
 			if ok {
 				if _, err := s.socket.Send(data); err != nil {

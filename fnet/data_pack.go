@@ -14,14 +14,17 @@ import (
 // // read
 // x := binary.BigEndian.Uint32(buf)
 
+var (
+	errTooLargeData = errors.New("too large msg data received")
+)
+
 type IDataPack interface {
 	UnPack(binaryData []byte) (IMessage, error)
 	Pack(msg IMessage) ([]byte, error)
 	GetHeadLen() uint32
 }
 
-type DataPack struct {
-}
+type DataPack struct {}
 
 func NewDataPack() *DataPack {
 	return &DataPack{}
@@ -41,8 +44,8 @@ func (dp *DataPack) UnPack(binaryData []byte) (IMessage, error) {
 		return nil, err
 	}
 	// 判读是否超出限定长度
-	if msg.DataLen > max_packet_size {
-		return nil, errors.New("too large msg data received")
+	if msg.DataLen > MAX_PACKAGE_SIZE {
+		return nil, errTooLargeData
 	}
 	// 只需要把header解包，然后通过head的长度，直接读取消息即可
 	return msg, nil
@@ -66,5 +69,5 @@ func (dp *DataPack) Pack(msg IMessage) ([]byte, error) {
 }
 
 func (dp *DataPack) GetHeadLen() uint32 {
-	return default_header_len
+	return DEFAULT_HEADER_LEN
 }
