@@ -3,7 +3,7 @@ package database
 import (
 	"fmt"
 	protos "github.com/felix/felixgo/database/proto"
-	. "github.com/felix/felixgo/db"
+	"github.com/felix/felixgo/db"
 	"github.com/golang/protobuf/proto"
 )
 
@@ -15,7 +15,7 @@ func (r *UserHandler) PrimaryKey() (interface{}, interface{}) {
 	return r.UserId, nil
 }
 
-func (r *UserHandler) CreateTable(mysql *Mysql) error {
+func (r *UserHandler) CreateTable(mysql *db.Mysql) error {
 	sql := `CREATE TABLE IF NOT EXISTS %s (
   Id bigint(20) NOT NULL ,
   AccountId varchar(45) DEFAULT '',
@@ -32,7 +32,7 @@ func (r *UserHandler) CreateTable(mysql *Mysql) error {
 	return err
 }
 
-func (r *UserHandler) Select(mysql *Mysql, keys ...interface{}) (bool, error) {
+func (r *UserHandler) Select(mysql *db.Mysql, keys ...interface{}) (bool, error) {
 	sql := `select Id, AccountId, Name, Level, BaseData, CreateTime from %s where Id=? `
 	sql = fmt.Sprintf(sql, TB_User)
 	row := mysql.QueryRow(sql, keys...)
@@ -60,7 +60,7 @@ func (r *UserHandler) Select(mysql *Mysql, keys ...interface{}) (bool, error) {
 	return true, nil
 }
 
-func (r *UserHandler) Insert(mysql *Mysql, args ...interface{}) (bool, error) {
+func (r *UserHandler) Insert(mysql *db.Mysql, args ...interface{}) (bool, error) {
 	sql := `insert into %s values (?, ?, ?, ?, ?, ?, ?)`
 	Id := args[0].(int)
 	AccountId := args[1].(string)
@@ -78,7 +78,7 @@ func (r *UserHandler) Insert(mysql *Mysql, args ...interface{}) (bool, error) {
 	return true, nil
 }
 
-func (r *UserHandler) Updata(mysql *Mysql, args ...interface{}) (bool, error) {
+func (r *UserHandler) Updata(mysql *db.Mysql, args ...interface{}) (bool, error) {
 	sql := `update %s set AccountId=?, Name=?, Level=?, BaseData=?, DetailData=? where id=?`
 	sql = fmt.Sprintf(sql, TB_User)
 	Id := args[0].(int)
@@ -96,7 +96,7 @@ func (r *UserHandler) Updata(mysql *Mysql, args ...interface{}) (bool, error) {
 	return true, nil
 }
 
-func (r *UserHandler) Delete(mysql *Mysql, keys ...interface{}) (bool, error) {
+func (r *UserHandler) Delete(mysql *db.Mysql, keys ...interface{}) (bool, error) {
 	sql := `delete from %s where id=?`
 	sql = fmt.Sprintf(sql, TB_User)
 	_, err := mysql.Exec(sql, keys...)

@@ -8,6 +8,7 @@ require (
 	github.com/go-sql-driver/mysql v1.6.0
 	github.com/golang/protobuf v1.5.2
 	github.com/gomodule/redigo v1.8.8
+	gopkg.in/ini.v1 v1.66.4
 )
 
 require google.golang.org/protobuf v1.26.0 // indirect

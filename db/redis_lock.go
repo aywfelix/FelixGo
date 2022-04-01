@@ -84,7 +84,7 @@ func (g *GLocker) goLock() {
 }
 
 func (g *GLocker) lock() bool {
-	if ret, err := DbRedis.DoScript(REDIS_SCRIPT_GLOCK, g.key, g.token, GLOCK_TIMEOUT); err == nil {
+	if ret, err := RedisHelper.DoScript(REDIS_SCRIPT_GLOCK, g.key, g.token, GLOCK_TIMEOUT); err == nil {
 		if bytes, ok := ret.([]byte); ok {
 			return string(bytes) == "ok"
 		}
@@ -96,7 +96,7 @@ func (g *GLocker) lock() bool {
 }
 
 func (g *GLocker) unlock() {
-	_, err := DbRedis.DoScript(REDIS_SCRIPT_GUNLOCK, g.key, g.token)
+	_, err := RedisHelper.DoScript(REDIS_SCRIPT_GUNLOCK, g.key, g.token)
 	if err != nil {
 		LogError("GLocker: unlock failed, %v, token: %s\n", err, g.token)
 	}

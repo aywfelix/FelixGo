@@ -15,9 +15,9 @@ const (
 )
 
 var (
-	script_not_exist  = errors.New("script not exit")
-	assert_return_err = errors.New("assert return value error")
-	return_nil_value  = errors.New("return nil value")
+	errScriptNotExist  = errors.New("script not exit")
+	errAssertReturn = errors.New("assert return value error")
+	errReturnNilValue  = errors.New("return nil value")
 )
 
 type IRedis interface {
@@ -84,7 +84,7 @@ func (r *Redis) SetScript(key string, script string, keyCount int) {
 func (r *Redis) DoScript(key string, args ...interface{}) (reply interface{}, err error) {
 	script, ok := r.scripts[key]
 	if !ok {
-		return nil, script_not_exist
+		return nil, errScriptNotExist
 	}
 
 	conn := r.tryGetConn()
@@ -205,7 +205,7 @@ func (r *Redis) GetString(key string) (string, error) {
 		return "", err
 	} else {
 		if res == nil {
-			return "", return_nil_value
+			return "", errReturnNilValue
 		}
 		return string(res.([]byte)), nil
 	}
@@ -257,7 +257,7 @@ func (r *Redis) HGet(key string, field interface{}) (string, error) {
 		return "", err
 	} else {
 		if res == nil {
-			return "", return_nil_value
+			return "", errReturnNilValue
 		}
 		return string(res.([]byte)), nil
 	}
@@ -270,7 +270,7 @@ func (r *Redis) HGetAll(key string) (map[string]string, error) {
 	} else {
 		array := res.([]interface{})
 		if len(array) == 0 {
-			return nil, return_nil_value
+			return nil, errReturnNilValue
 		}
 		result := make(map[string]string, 0)
 		for i := 0; i < len(array); {
@@ -291,7 +291,7 @@ func (r *Redis) HKeys(key string) ([]string, error) {
 	} else {
 		array := res.([]interface{})
 		if len(array) == 0 {
-			return nil, return_nil_value
+			return nil, errReturnNilValue
 		}
 		result := make([]string, 0)
 		for _, value := range array {
@@ -317,7 +317,7 @@ func (r *Redis) HMget(key string, fields ...interface{}) ([]string, error) {
 	} else {
 		array := res.([]interface{})
 		if len(array) == 0 {
-			return nil, return_nil_value
+			return nil, errReturnNilValue
 		}
 		result := make([]string, 0)
 		for _, value := range array {
@@ -388,7 +388,7 @@ func (r *Redis) LRange(key string, start, end int) ([]string, error) {
 	} else {
 		array := res.([]interface{})
 		if len(array) == 0 {
-			return nil, return_nil_value
+			return nil, errReturnNilValue
 		}
 		result := make([]string, 0)
 		for _, value := range array {
@@ -444,7 +444,7 @@ func (r *Redis) SMembers(key string) ([]string, error) {
 	} else {
 		array := res.([]interface{})
 		if len(array) == 0 {
-			return nil, return_nil_value
+			return nil, errReturnNilValue
 		}
 		result := make([]string, 0)
 		for _, value := range array {
@@ -509,7 +509,7 @@ func (r *Redis) ZRevRange(key string, start, end int64, withScores bool) ([][]st
 	}
 	array := res.([]interface{})
 	if len(array) == 0 {
-		return nil, return_nil_value
+		return nil, errReturnNilValue
 	}
 	result := make([][]string, 0)
 	if withScores {
@@ -533,7 +533,7 @@ func (r *Redis) ZRank(key string, member interface{}) ([]string, error) {
 	} else {
 		array := res.([]interface{})
 		if len(array) == 0 {
-			return nil, return_nil_value
+			return nil, errReturnNilValue
 		}
 		result := make([]string, 0)
 		for _, value := range array {

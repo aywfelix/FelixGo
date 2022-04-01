@@ -3,56 +3,50 @@ package db
 import (
 	"time"
 	
-	. "github.com/felix/felixgo/global"
+	. "github.com/felix/felixgo/configure"
 	. "github.com/felix/felixgo/thread"
 	. "github.com/felix/felixgo/logger"
 )
 
-var DbMysql *Mysql
-var DbRedis *Redis
+var MysqlHelper *Mysql
+var RedisHelper *Redis
 
-func StartMysql() error {
-	if DbMysql != nil || ServerConf == nil {
+func StartMysql(cfg MysqlConf) error {
+	if MysqlHelper != nil {
 		return nil
 	}
-	DbMysql = NewMysql()
-	return DbMysql.Connect(ServerConf.Mysql.User,
-		ServerConf.Mysql.Password,
-		ServerConf.Mysql.Host,
-		ServerConf.Mysql.Port,
-		ServerConf.Mysql.DataBase)
+
+	MysqlHelper = NewMysql()
+	return MysqlHelper.Connect(cfg.User, cfg.Password, cfg.Host, cfg.Port, cfg.DataBase)
 }
 
 func StopMysql() {
-	DbMysql.Close()
+	MysqlHelper.Close()
 }
 
-func StartRedis() {
-	if DbRedis != nil {
+func StartRedis(cfg RedisConf) {
+	if RedisHelper != nil {
 		return
 	}
-	DbRedis = NewRedis()
-	DbRedis.InitConnect(ServerConf.Redis.Host,
-		ServerConf.Redis.Port,
-		ServerConf.Redis.Password,
-		ServerConf.Redis.DB)
+	RedisHelper = NewRedis()
+	RedisHelper.InitConnect(cfg.Host, cfg.Port, cfg.Password, cfg.DB)
 }
 
 func StopRedis() {
-	DbRedis.Close()
+	RedisHelper.Close()
 }
 
 func DebugDB() {
 	TimeLoop(time.Second*5, func() {
-		if DbRedis != nil {
-			redisIdle := DbRedis.GetIdleCount()
-			redisActive := DbRedis.GetActiveCount()
+		if RedisHelper != nil {
+			redisIdle := RedisHelper.GetIdleCount()
+			redisActive := RedisHelper.GetActiveCount()
 			LogDebug("db connection stats, redis: %d  %d", redisIdle, redisActive)
 		}
 
-		if DbMysql != nil {
+		if MysqlHelper != nil {
 			mysqlIdle, mysqlActive := -1, -1
-			myStats := DbMysql.Stats()
+			myStats := MysqlHelper.Stats()
 			if myStats != nil {
 				mysqlIdle = myStats.Idle
 				mysqlActive = myStats.InUse

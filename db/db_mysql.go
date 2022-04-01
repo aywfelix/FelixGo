@@ -35,17 +35,6 @@ func NewMysql() *Mysql {
 }
 
 func (m *Mysql) Connect(user, password, host string, port int, db string) error {
-	// dsn := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s",
-	// 	GConfig.Mysql.User,
-	// 	GConfig.Mysql.Password,
-	// 	GConfig.Mysql.Host,
-	// 	GConfig.Mysql.Port,
-	// 	GConfig.Mysql.DataBase)
-	// hander, err := sql.Open("mysql", dsn)
-	// if err != nil {
-	// 	return err
-	// }
-
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s", user, password, host, port, db)
 	handler, err := sql.Open("mysql", dsn)
 	if err != nil {
@@ -77,7 +66,7 @@ func (m *Mysql) Close() {
 func (m *Mysql) Exec(query string, args ...interface{}) (sql.Result, error) {
 	result, err := m.handler.Exec(query, args...)
 	if err != nil {
-		fmt.Sprintf("exec sql error, sql:%s, error:%s\n", query, err.Error())
+		// fmt.Sprintf("exec sql error, sql:%s, error:%s\n", query, err.Error())
 		return nil, err
 	}
 	return result, nil
@@ -87,7 +76,7 @@ func (m *Mysql) Exec(query string, args ...interface{}) (sql.Result, error) {
 func (m *Mysql) Query(query string, args ...interface{}) (*sql.Rows, error) {
 	rows, err := m.handler.Query(query, args...)
 	if err != nil {
-		fmt.Sprintf("query sql error, sql:%s, error:%s\n", query, err.Error())
+		// fmt.Sprintf("query sql error, sql:%s, error:%s\n", query, err.Error())
 		return rows, err
 	}
 	return rows, nil

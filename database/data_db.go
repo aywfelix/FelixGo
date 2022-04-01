@@ -3,17 +3,16 @@ package database
 // db 只有数据操作，也就是只会保存玩家数据落地
 
 import (
-	. "github.com/felix/felixgo/db"
-
+	"github.com/felix/felixgo/db"
 )
 
 type IDBHandler interface {
-	CreateTable(mysql *Mysql) error
+	CreateTable(mysql *db.Mysql) error
 	PrimaryKey() (interface{}, interface{})
-	Select(mysql *Mysql, keys ...interface{}) (bool, error)
-	Insert(mysql *Mysql, args ...interface{}) (bool, error)
-	Updata(mysql *Mysql, args ...interface{}) (bool, error)
-	Delete(mysql *Mysql, keys ...interface{}) (bool, error)
+	Select(mysql *db.Mysql, keys ...interface{}) (bool, error)
+	Insert(mysql *db.Mysql, args ...interface{}) (bool, error)
+	Updata(mysql *db.Mysql, args ...interface{}) (bool, error)
+	Delete(mysql *db.Mysql, keys ...interface{}) (bool, error)
 	FromBytes(blob []byte) error
 	ToBytes() ([]byte, error)
 }
