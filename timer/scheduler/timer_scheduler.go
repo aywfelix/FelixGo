@@ -5,9 +5,9 @@ import (
 	"math"
 	"sync"
 	"time"
-	
-	. "github.com/felix/felixgo/logger"
-	. "github.com/felix/felixgo/utils"
+
+	. "github.com/aywfelix/felixgo/logger"
+	. "github.com/aywfelix/felixgo/utils"
 )
 
 const (

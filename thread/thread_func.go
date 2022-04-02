@@ -3,8 +3,8 @@
 import (
 	"runtime/debug"
 	"time"
-	
-	. "github.com/felix/felixgo/logger"
+
+	. "github.com/aywfelix/felixgo/logger"
 )
 
 type Func func()
@@ -71,7 +71,6 @@ func GoRun(f Func) {
 		f()
 	}()
 }
-
 
 func init() {
 

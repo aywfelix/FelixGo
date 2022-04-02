@@ -3,9 +3,9 @@ package fnet
 import (
 	"fmt"
 	"net"
-	
-	. "github.com/felix/felixgo/logger"
-	. "github.com/felix/felixgo/utils"
+
+	. "github.com/aywfelix/felixgo/logger"
+	. "github.com/aywfelix/felixgo/utils"
 )
 
 type ISocket interface {

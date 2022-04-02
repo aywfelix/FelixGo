@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	. "github.com/felix/felixgo/logger/handler"
+	. "github.com/aywfelix/felixgo/logger/handler"
 )
 
 const (

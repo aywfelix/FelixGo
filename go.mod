@@ -1,4 +1,4 @@
-module github.com/felix/felixgo
+module github.com/aywfelix/felixgo
 
 go 1.17
 

@@ -6,8 +6,8 @@ import (
 	"runtime/debug"
 	"time"
 
-	. "github.com/felix/felixgo/logger"
-	. "github.com/felix/felixgo/thread"
+	. "github.com/aywfelix/felixgo/logger"
+	. "github.com/aywfelix/felixgo/thread"
 )
 
 type RequestHandler func(form *HttpForm) interface{}

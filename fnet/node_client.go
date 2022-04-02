@@ -1,10 +1,10 @@
 package fnet
 
 import (
-	"github.com/felix/felixgo/configure"
-	. "github.com/felix/felixgo/logger"
-	nodepb "github.com/felix/felixgo/fnet/proto"
-	. "github.com/felix/felixgo/common"
+	. "github.com/aywfelix/felixgo/common"
+	"github.com/aywfelix/felixgo/configure"
+	nodepb "github.com/aywfelix/felixgo/fnet/proto"
+	. "github.com/aywfelix/felixgo/logger"
 )
 
 type INodeClient interface {

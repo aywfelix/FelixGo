@@ -1,8 +1,8 @@
 package fnet
 
 import (
-	"github.com/felix/felixgo/configure"
-	. "github.com/felix/felixgo/logger"
+	"github.com/aywfelix/felixgo/configure"
+	. "github.com/aywfelix/felixgo/logger"
 )
 
 type INodeServer interface {

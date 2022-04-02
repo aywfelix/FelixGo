@@ -6,9 +6,9 @@ import (
 	"fmt"
 	"net"
 	"sync"
-	
-	. "github.com/felix/felixgo/logger"
-	. "github.com/felix/felixgo/thread"
+
+	. "github.com/aywfelix/felixgo/logger"
+	. "github.com/aywfelix/felixgo/thread"
 )
 
 type ISession interface {
@@ -211,9 +211,9 @@ func (s *Session) startWriter() {
 					return
 				}
 				LogInfo("send data to client ok, %v", data)
-			}else{
+			} else {
 				LogInfo("msgChan closed")
-				break				
+				break
 			}
 		case data, ok := <-s.msgBuffChan:
 			if ok {

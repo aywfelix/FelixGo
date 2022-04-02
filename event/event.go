@@ -2,7 +2,8 @@ package event
 
 import (
 	"reflect"
-	. "github.com/felix/felixgo/logger"
+
+	. "github.com/aywfelix/felixgo/logger"
 )
 
 type OnEventHandler func(et EventType, args ...interface{})

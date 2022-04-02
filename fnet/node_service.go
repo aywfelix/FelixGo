@@ -2,8 +2,9 @@ package fnet
 
 import (
 	"context"
-	"github.com/felix/felixgo/configure"
-	. "github.com/felix/felixgo/thread"
+
+	"github.com/aywfelix/felixgo/configure"
+	. "github.com/aywfelix/felixgo/thread"
 )
 
 // node 服务接口

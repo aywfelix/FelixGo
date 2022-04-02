@@ -2,7 +2,8 @@ package timer
 
 import (
 	"runtime/debug"
-	. "github.com/felix/felixgo/logger"
+
+	. "github.com/aywfelix/felixgo/logger"
 )
 
 const (

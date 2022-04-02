@@ -2,10 +2,10 @@ package db
 
 import (
 	"time"
-	
-	. "github.com/felix/felixgo/configure"
-	. "github.com/felix/felixgo/thread"
-	. "github.com/felix/felixgo/logger"
+
+	. "github.com/aywfelix/felixgo/configure"
+	. "github.com/aywfelix/felixgo/logger"
+	. "github.com/aywfelix/felixgo/thread"
 )
 
 var MysqlHelper *Mysql

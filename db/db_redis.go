@@ -3,9 +3,10 @@ package db
 import (
 	"errors"
 	"fmt"
-	redigo "github.com/gomodule/redigo/redis"
-	. "github.com/felix/felixgo/logger"
 	"time"
+
+	. "github.com/aywfelix/felixgo/logger"
+	redigo "github.com/gomodule/redigo/redis"
 )
 
 const (
@@ -15,9 +16,9 @@ const (
 )
 
 var (
-	errScriptNotExist  = errors.New("script not exit")
-	errAssertReturn = errors.New("assert return value error")
-	errReturnNilValue  = errors.New("return nil value")
+	errScriptNotExist = errors.New("script not exit")
+	errAssertReturn   = errors.New("assert return value error")
+	errReturnNilValue = errors.New("return nil value")
 )
 
 type IRedis interface {

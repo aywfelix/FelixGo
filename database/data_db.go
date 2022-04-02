@@ -3,7 +3,7 @@ package database
 // db 只有数据操作，也就是只会保存玩家数据落地
 
 import (
-	"github.com/felix/felixgo/db"
+	"github.com/aywfelix/felixgo/db"
 )
 
 type IDBHandler interface {

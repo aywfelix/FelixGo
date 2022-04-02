@@ -2,8 +2,9 @@ package database
 
 import (
 	"fmt"
-	protos "github.com/felix/felixgo/database/proto"
-	"github.com/felix/felixgo/db"
+
+	protos "github.com/aywfelix/felixgo/database/proto"
+	"github.com/aywfelix/felixgo/db"
 	"github.com/golang/protobuf/proto"
 )
 

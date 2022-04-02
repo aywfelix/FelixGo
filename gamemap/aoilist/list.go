@@ -3,9 +3,10 @@ package gamemap
 
 import (
 	"math"
-	"github.com/felix/felixgo/global"
-	. "github.com/felix/felixgo/container/list"
-	. "github.com/felix/felixgo/container"
+
+	. "github.com/aywfelix/felixgo/container"
+	. "github.com/aywfelix/felixgo/container/list"
+	. "github.com/aywfelix/felixgo/common"
 )
 
 type PosNode struct {
@@ -88,10 +89,10 @@ func (l *PosList) GetScreenPlayers(pos int) SetUInt64 {
 	for listNode != nil {
 		node := listNode.Data.(*PosNode)
 		dis := math.Abs(float64(node.pos - pos))
-		if dis <= global.SCREEN_SIGHT {
+		if dis <= SCREEN_SIGHT {
 			players.Add(node.pID)
 		}
-		if node.pos > pos && dis <= global.SCREEN_SIGHT {
+		if node.pos > pos && dis <= SCREEN_SIGHT {
 			break
 		}
 		listNode = listNode.Next
@@ -109,10 +110,10 @@ func (l *PosList) GetViewPlayers(pos int) SetUInt64 {
 	for listNode != nil {
 		node := listNode.Data.(*PosNode)
 		dis := math.Abs(float64(node.pos - pos))
-		if dis <= global.SIGHT {
+		if dis <= SIGHT {
 			players.Add(node.pID)
 		}
-		if node.pos > pos && dis > global.SIGHT {
+		if node.pos > pos && dis > SIGHT {
 			break
 		}
 		listNode = listNode.Next

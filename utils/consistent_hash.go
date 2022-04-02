@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"sort"
 
-	"github.com/felix/felixgo/encrypt"
+	"github.com/aywfelix/felixgo/encrypt"
 )
 
 // 定义虚拟节点

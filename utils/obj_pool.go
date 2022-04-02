@@ -2,7 +2,8 @@ package utils
 
 import (
 	"sync"
-	. "github.com/felix/felixgo/container/list"
+
+	. "github.com/aywfelix/felixgo/container/list"
 )
 
 type IObjPool interface {

@@ -8,7 +8,7 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/felix/felixgo/encrypt"
+	"github.com/aywfelix/felixgo/encrypt"
 )
 
 var (

@@ -1,8 +1,9 @@
 package fnet
 
 import (
-	. "github.com/felix/felixgo/logger"
 	"time"
+
+	. "github.com/aywfelix/felixgo/logger"
 )
 
 type INetClients interface {

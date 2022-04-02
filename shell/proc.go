@@ -9,8 +9,8 @@ import (
 	"strings"
 	"time"
 
-	. "github.com/felix/felixgo/container/string"
-	. "github.com/felix/felixgo/utils"
+	. "github.com/aywfelix/felixgo/container/string"
+	. "github.com/aywfelix/felixgo/utils"
 )
 
 const (

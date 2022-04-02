@@ -2,7 +2,7 @@
 package gamemap
 
 import (
-	. "github.com/felix/felixgo/container"
+	. "github.com/aywfelix/felixgo/container"
 )
 
 type PosListManager struct {

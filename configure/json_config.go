@@ -5,7 +5,8 @@ import (
 	"errors"
 	"io/ioutil"
 	"os"
-	. "github.com/felix/felixgo/utils"
+
+	. "github.com/aywfelix/felixgo/utils"
 )
 
 type jsonConfig struct {
@@ -45,4 +46,3 @@ func (c jsonConfig) AssignStruct(st interface{}) error {
 func (c jsonConfig) GetConfig() interface{} {
 	return c.st
 }
-

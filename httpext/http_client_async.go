@@ -2,9 +2,9 @@ package httpext
 
 import (
 	"net/http"
-	
-	. "github.com/felix/felixgo/logger"
-	. "github.com/felix/felixgo/thread"
+
+	. "github.com/aywfelix/felixgo/logger"
+	. "github.com/aywfelix/felixgo/thread"
 )
 
 type RespHandler func(reqResult *RequestAsyncRet)

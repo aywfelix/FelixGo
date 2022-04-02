@@ -1,7 +1,7 @@
 ﻿package main
 
 import (
-	. "github.com/felix/felixgo/fnet"
+	. "github.com/aywfelix/felixgo/fnet"
 )
 
 func main() {
