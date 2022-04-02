@@ -2,6 +2,7 @@ package fnet
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"net"
@@ -9,6 +10,7 @@ import (
 
 	. "github.com/aywfelix/felixgo/logger"
 	. "github.com/aywfelix/felixgo/thread"
+	"github.com/golang/protobuf/proto"
 )
 
 type ISession interface {
@@ -21,8 +23,8 @@ type ISession interface {
 	RemoteAddr() string // 获取远程客户端地址
 	LocalAddr() string  //
 
-	SendProto(msgID uint32, data []byte) error
-	SendJson(msgID uint32, data []byte) error
+	SendProto(msgID uint32, msg *proto.Message) error
+	SendJson(msgID uint32, msg interface{}) error
 
 	SendProtoBuffer(msgID uint32, data []byte) error
 	SendJsonBuffer(msgID uint32, data []byte) error
@@ -33,6 +35,8 @@ type ISession interface {
 
 	SetNetService(service INetService)
 	GetNetService() INetService
+
+	GetNodeService() INodeService
 }
 
 type Session struct {
@@ -106,11 +110,19 @@ func (s *Session) LocalAddr() string {
 	return s.socket.LocalAddr()
 }
 
-func (s *Session) SendProto(msgID uint32, data []byte) error {
+func (s *Session) SendProto(msgID uint32, msg *proto.Message) error {
+	data, err := proto.Marshal(*msg)
+	if err != nil {
+		return err
+	}
 	return s.sendMsg(msgID, uint8(MT_PROTO), data)
 }
 
-func (s *Session) SendJson(msgID uint32, data []byte) error {
+func (s *Session) SendJson(msgID uint32, msg interface{}) error {
+	data, err := json.Marshal(msg)
+	if err != nil {
+		return err
+	}
 	return s.sendMsg(msgID, uint8(MT_JSON), data)
 }
 
@@ -119,7 +131,7 @@ func (s *Session) sendMsg(msgID uint32, msgType uint8, data []byte) error {
 	defer s.RUnlock()
 	msg, err := s.dataPack.Pack(NewMessage(msgID, msgType, data))
 	if err != nil {
-		return errors.New(fmt.Sprintf("pack msg err, msgid=%d", msgID))
+		return fmt.Errorf("pack msg err, msgid=%d", msgID)
 	}
 	s.msgChan <- msg
 	return nil
@@ -244,4 +256,8 @@ func (s *Session) SetNetService(service INetService) {
 
 func (s *Session) GetNetService() INetService {
 	return s.netService
+}
+
+func (s *Session) GetNodeService() INodeService {
+	return s.netService.GetNodeService()
 }

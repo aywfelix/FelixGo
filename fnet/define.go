@@ -47,9 +47,11 @@ const MSG_WORKER_POOL_SIZE = 1000
 type MsgErrCode int64
 
 const (
-	MEC_OK    MsgErrCode = 0
-	MEC_ERR   MsgErrCode = 1
-	MEC_MSGID MsgErrCode = 2
+	MEC_OK            MsgErrCode = 0
+	MEC_ERR           MsgErrCode = 1
+	MEC_MSGID         MsgErrCode = 2
+	MEC_MSG_UNMARSHAL MsgErrCode = 3
+	MEC_MSG_MARSHAL   MsgErrCode = 3
 )
 
 type NetEventType uint32

@@ -6,8 +6,8 @@ var (
 	errPathNotExist = errors.New("config path is not exit")
 )
 
-var JsonConfig jsonConfig
-var IniConfig iniConfig
+var JsonConfig *jsonConfig
+var IniConfig *iniConfig
 
 // 定义需要的配置节点
 var (
@@ -122,4 +122,8 @@ func LoadIniConfig(cfg string) error {
 		RollSize: IniConfig.GetInt("LogServer", "RollSize"),
 	}
 	return nil
+}
+
+func init() {
+	IniConfig = &iniConfig{}
 }

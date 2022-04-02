@@ -1,1 +1,1 @@
-D:\goproject\goext\src\tools\protoc\protoc.exe --go_out=. node.proto
+protoc.exe --go_out=. node.proto

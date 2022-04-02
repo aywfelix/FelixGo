@@ -14,61 +14,61 @@ type NodeServer struct {
 }
 
 func NewNodeServer(config *configure.NetNode) *NodeServer {
-	ns := new(NodeServer)
-	ns.msgHandler = NewMsgHandler()
-	ns.dataPack = NewDataPack()
-	ns.nodeConfig = config
+	s := new(NodeServer)
+	s.msgHandler = NewMsgHandler()
+	s.dataPack = NewDataPack()
+	s.nodeConfig = config // 本服务器节点配置信息
 	ip := config.NodeIP
 	port := config.NodePort
-	ns.netService = NewNetServer(ns, ip, port)
-	ns.isStopped = false
+	s.netService = NewNetServer(s, ip, port)
+	s.isStopped = false
 	// set default function
-	ns.onStarted = ns.onStart
-	ns.onStopped = ns.onStop
-	ns.onConnected = ns.onSessionConnect
-	ns.onDisconnected = ns.onSessionDisconnect
-	return ns
+	s.onStarted = s.onStart
+	s.onStopped = s.onStop
+	s.onConnected = s.onSessionConnect
+	s.onDisconnected = s.onSessionDisconnect
+	return s
 }
 
-func (ns *NodeServer) Start() {
+func (s *NodeServer) Start() {
 	LogInfo("node server start...")
-	if ns.onStarted != nil {
-		ns.onStarted()
+	if s.onStarted != nil {
+		s.onStarted()
 	}
 	// 开启网络监听
-	netServer := ns.netService.(INetServer)
+	netServer := s.netService.(INetServer)
 	if err := netServer.Listen(); err != nil {
 		LogError("Error listening, %v", err)
-		ns.Stop()
+		s.Stop()
 		return
 	}
 	// 注册路由服务
 	LogInfo("node server started...")
 }
 
-func (ns *NodeServer) Serve() {}
+func (s *NodeServer) Serve() {}
 
-func (ns *NodeServer) Stop() {
+func (s *NodeServer) Stop() {
 	LogInfo("node server stop ...")
-	ns.isStopped = true
-	if ns.onStopped != nil {
-		ns.onStopped()
+	s.isStopped = true
+	if s.onStopped != nil {
+		s.onStopped()
 	}
 	LogInfo("node server stopped...")
 }
 
-func (ns *NodeServer) onStart(args ...interface{}) {
+func (s *NodeServer) onStart(args ...interface{}) {
 	LogInfo("node server on start")
 }
 
-func (ns *NodeServer) onStop(args ...interface{}) {
+func (s *NodeServer) onStop(args ...interface{}) {
 	LogInfo("node server on stop")
 }
 
-func (ns *NodeServer) onSessionConnect(args ...interface{}) {
+func (s *NodeServer) onSessionConnect(args ...interface{}) {
 	LogInfo("node server on session connect")
 }
 
-func (ns *NodeServer) onSessionDisconnect(args ...interface{}) {
+func (s *NodeServer) onSessionDisconnect(args ...interface{}) {
 	LogInfo("node server on session disconnect")
 }

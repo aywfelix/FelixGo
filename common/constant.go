@@ -18,6 +18,16 @@ const (
 	SERVER_TYPE_PLAYER ServerType = 8
 )
 
+type ServerState int32
+
+const (
+	SS_CRASH   ServerState = 0
+	SS_NORMAL  ServerState = 1
+	SS_BUSY    ServerState = 2
+	SS_FIRE    ServerState = 3
+	SS_MAINTEN ServerState = 4
+)
+
 type ServiceType uint32
 
 const (

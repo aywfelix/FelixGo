@@ -1,8 +1,8 @@
 package fnet
 
-type IClient interface {
-}
+// type IClient interface {
+// }
 
-type Client struct {
-	netService INetService
-}
+// type Client struct {
+// 	netService INetService
+// }

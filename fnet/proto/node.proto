@@ -1,14 +1,5 @@
 syntax = "proto3";
 
-enum ServerState
-{
-	SS_CRASH = 0;
-	SS_NORMAL = 1;
-	SS_BUSY = 2;
-	SS_FIRE = 3;
-	SS_MAINTEN = 4;
-}
-
 message ServerReport
 {
 	int32	server_id = 1;
@@ -17,7 +8,7 @@ message ServerReport
 	int32	server_port = 4;
 	int32	max_online = 5;
 	int32	cur_online = 6;
-	ServerState	server_state = 7;
+	int32	server_state = 7;
 	int32	server_type = 8;
 }
 
