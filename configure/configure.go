@@ -31,7 +31,7 @@ func LoadIniConfig(cfg string) error {
 	
 	MasterCfg = &MasterNode{
 		NetNode: NetNode{
-			NodeId:IniConfig.GetInt("MasterServer", "NodeId"),
+			NodeId: IniConfig.GetInt("MasterServer", "NodeId"),
 			NodeName: IniConfig.GetString("MasterServer", "NodeName"),
 			NodeIP: IniConfig.GetString("MasterServer", "NodeIP"),
 			NodePort: IniConfig.GetInt("MasterServer", "NodePort"),
