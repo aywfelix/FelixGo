@@ -1,7 +1,7 @@
 ﻿package configure
 
 type MysqlConf struct {
-	Host     string
+	IP     string
 	Port     int
 	User     string
 	Password string
@@ -9,7 +9,7 @@ type MysqlConf struct {
 }
 
 type RedisConf struct {
-	Host     string
+	IP     string
 	Port     int
 	Password string
 	DB       int
@@ -52,8 +52,15 @@ type GateUserNode struct {
 	NetNode
 }
 
-type Global struct {
-	Project   string
+type GlobalConf struct {
 	MaxOnLine int
 	Dev       int
+}
+
+type LogConf struct {
+	Level int
+	Path string
+	RollType int
+	RollTime string
+	RollSize int
 }

@@ -22,7 +22,7 @@ var (
 )
 
 type IRedis interface {
-	InitConnect(host string, port int, password string, db int)
+	InitConnect(ip string, port int, password string, db int)
 	SetScript(key string, script string, keyCount int)
 	DoScript(key string, args ...interface{}) (reply interface{}, err error)
 	GetIdleCount() int
@@ -43,8 +43,8 @@ func NewRedis() *Redis {
 	}
 }
 
-func (r *Redis) InitConnect(host string, port int, password string, db int) {
-	dsn := fmt.Sprintf("redis://%s:%d", host, port)
+func (r *Redis) InitConnect(ip string, port int, password string, db int) {
+	dsn := fmt.Sprintf("redis://%s:%d", ip, port)
 	dial := func() (redigo.Conn, error) {
 		conn, err := redigo.DialURL(dsn)
 		if err != nil {

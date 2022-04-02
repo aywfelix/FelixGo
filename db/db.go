@@ -17,7 +17,7 @@ func StartMysql(cfg MysqlConf) error {
 	}
 
 	MysqlHelper = NewMysql()
-	return MysqlHelper.Connect(cfg.User, cfg.Password, cfg.Host, cfg.Port, cfg.DataBase)
+	return MysqlHelper.Connect(cfg.User, cfg.Password, cfg.IP, cfg.Port, cfg.DataBase)
 }
 
 func StopMysql() {
@@ -29,7 +29,7 @@ func StartRedis(cfg RedisConf) {
 		return
 	}
 	RedisHelper = NewRedis()
-	RedisHelper.InitConnect(cfg.Host, cfg.Port, cfg.Password, cfg.DB)
+	RedisHelper.InitConnect(cfg.IP, cfg.Port, cfg.Password, cfg.DB)
 }
 
 func StopRedis() {

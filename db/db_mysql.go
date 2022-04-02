@@ -16,7 +16,7 @@ const (
 )
 
 type IMysql interface {
-	Connect(user, password, host string, port int, db string) error
+	Connect(user, password, ip string, port int, db string) error
 	IsConnected() bool
 	Exec(query string, args ...interface{}) (sql.Result, error)
 	Query(query string, args ...interface{}) (*sql.Rows, error)
@@ -34,8 +34,8 @@ func NewMysql() *Mysql {
 	}
 }
 
-func (m *Mysql) Connect(user, password, host string, port int, db string) error {
-	dsn := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s", user, password, host, port, db)
+func (m *Mysql) Connect(user, password, ip string, port int, db string) error {
+	dsn := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s", user, password, ip, port, db)
 	handler, err := sql.Open("mysql", dsn)
 	if err != nil {
 		return err
