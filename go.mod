@@ -1,6 +1,6 @@
 module github.com/aywfelix/felixgo
 
-go 1.17
+go 1.16
 
 require (
 	github.com/OneOfOne/xxhash v1.2.8
@@ -10,5 +10,3 @@ require (
 	github.com/gomodule/redigo v1.8.8
 	gopkg.in/ini.v1 v1.66.4
 )
-
-require google.golang.org/protobuf v1.26.0 // indirect

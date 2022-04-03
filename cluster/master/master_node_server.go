@@ -26,8 +26,8 @@ type IMasterNodeServer interface {
 
 type MasterNodeServer struct {
 	serverMap ServerInfoMap
-	// 网络服务
-	netService INetService
+	// // 网络服务
+	// netService INetService
 	// 消息处理
 	msgHandler IMsgHandler
 	// 继承自 nodeservice

@@ -1,6 +1,7 @@
 package cluster
 
 import (
+	"context"
 	"fmt"
 
 	. "github.com/aywfelix/felixgo/fnet"
@@ -14,6 +15,8 @@ type IBaseServer interface {
 	Start()
 	Serve()
 	Stop()
+
+	Context() context.Context
 
 	ReadConfig() // 读取配置：读取redis mysql配置
 	StartLog()   // 启动日志管理
@@ -37,6 +40,9 @@ type BaseServer struct {
 	onStop  func() bool
 	// 本服务器详细信息
 	ServerInfo pb.ServerReport
+	// ctx
+	ctx          context.Context
+	cancel       context.CancelFunc
 }
 
 func NewBaseServer() *BaseServer {
@@ -49,17 +55,34 @@ func NewBaseServer() *BaseServer {
 
 // 启动服务器
 func (s *BaseServer) Start() {
-	s.onStart()
+	s.ctx, s.cancel = context.WithCancel(context.Background())
+
+	if s.onStart != nil {
+		s.onStart()
+	}
+}
+
+func (s *BaseServer) Context() context.Context{
+	return s.ctx
 }
 
 // 关闭服务器
 func (s *BaseServer) Stop() {
-	s.onStop()
+	s.cancel()
 }
 
 // 运行服务器执行
 func (s *BaseServer) Serve() {
-
+	for {
+		select {
+		case <-s.ctx.Done():
+			// 服务器退出
+			if s.onStop != nil {
+				s.onStop()
+			}
+			return
+		}
+	}
 }
 
 // 读取配置

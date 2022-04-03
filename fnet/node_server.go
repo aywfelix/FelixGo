@@ -9,8 +9,8 @@ type INodeServer interface {
 }
 
 type NodeServer struct {
-	NodeService
 	netService INetService
+	NodeService
 }
 
 func NewNodeServer(config *configure.NetNode) *NodeServer {
