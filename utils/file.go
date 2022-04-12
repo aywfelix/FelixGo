@@ -145,5 +145,13 @@ func (f file) ExtName(path string) string {
 	return strings.TrimLeft(f.Ext(path), ".")
 }
 
+func (f file) GetCurrentDir() string {
+	dir, err := filepath.Abs(os.Args[0])
+	if err != nil {
+		panic("get current directory error")
+	}
+	return strings.Replace(dir, "\\", "/", -1)
+}
+
 //========================================================================
 var File file
